@@ -41,10 +41,12 @@ def get_api_key() -> str:
 
 
 # --- 2. Embedded HTML / CSS / JS ---
+
 CSS_CONTENT = """
 /* Import High-Legibility Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap');
 
+/* --- Executive Palette --- */
 :root {
     --tech-bg: #030712;
     --tech-surface: #0f172a;
@@ -69,6 +71,7 @@ body {
 
 .app-container { position: relative; z-index: 10; max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
 
+/* --- Navigation --- */
 .navbar { display: flex; justify-content: space-between; align-items: center; padding: 2rem 0; }
 .nav-brand { font-size: 1.8rem; font-weight: 900; letter-spacing: 2px; }
 .nav-brand span { color: var(--tech-highlight); }
@@ -78,7 +81,9 @@ body {
 }
 .dot { width: 8px; height: 8px; border-radius: 50%; background: #10b981; box-shadow: 0 0 10px #10b981; }
 
+/* --- Hero Banner --- */
 .hero-header { text-align: center; padding: 6rem 1rem; margin-bottom: 4rem; }
+.hero-badge { display: inline-block; padding: 0.5rem 1.5rem; background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2); border-radius: 50px; color: var(--tech-highlight); font-size: 0.8rem; font-weight: 700; margin-bottom: 2rem; letter-spacing: 2px; }
 .hero-header h1 {
     font-size: 5rem; line-height: 1; margin: 0; font-weight: 900;
     background: linear-gradient(to right, #ffffff 30%, var(--tech-highlight) 100%);
@@ -87,9 +92,11 @@ body {
 .hero-header h1 span { display: block; filter: brightness(1.2); }
 .hero-header p { font-size: 1.4rem; color: var(--tech-muted); max-width: 800px; margin: 2rem auto 0; }
 
+/* --- Layout --- */
 .content-grid { display: grid; grid-template-columns: 450px 1fr; gap: 3rem; margin-bottom: 6rem; }
 @media (max-width: 1100px) { .content-grid { grid-template-columns: 1fr; } }
 
+/* --- Cards --- */
 .card {
     background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(20px); border-radius: 24px;
     border: 1px solid var(--glass-border); padding: 2.5rem; margin-bottom: 2rem; box-shadow: var(--shadow-elite);
@@ -105,6 +112,7 @@ body {
 .card-header h2 { font-size: 1.4rem; margin: 0; font-weight: 800; }
 .card-header h2 span { display: block; font-size: 0.8rem; color: var(--tech-muted); font-weight: 500; margin-top: 0.2rem; }
 
+/* --- Upload Zone --- */
 .upload-zone {
     border: 2px dashed rgba(255, 255, 255, 0.05); background: rgba(0, 0, 0, 0.2); border-radius: 20px;
     padding: 4rem 1rem; text-align: center; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -117,6 +125,7 @@ body {
 .preview-container img { width: 100%; max-height: 400px; object-fit: contain; border-radius: 16px; border: 1px solid var(--glass-border); }
 .btn-text { background: none; border: none; color: var(--tech-highlight); cursor: pointer; font-weight: 700; margin-top: 1rem; }
 
+/* --- Buttons --- */
 .btn {
     position: relative; width: 100%; padding: 1.2rem; border-radius: 16px; border: none; font-family: 'Cairo', sans-serif;
     font-weight: 800; font-size: 1.2rem; cursor: pointer; overflow: hidden; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -124,10 +133,19 @@ body {
 .btn-primary { background: var(--tech-accent); color: #fff; box-shadow: 0 10px 30px -10px rgba(37, 99, 235, 0.5); }
 .btn-primary:hover { transform: translateY(-5px); box-shadow: 0 20px 40px -10px rgba(37, 99, 235, 0.7); }
 
+.btn-glow {
+    position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%); opacity: 0; transition: opacity 0.3s;
+}
+.btn:hover .btn-glow { opacity: 1; }
+
+/* --- Results Section --- */
 .placeholder-content { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--tech-muted); }
 .placeholder-icon { font-size: 5rem; opacity: 0.2; margin-bottom: 2rem; }
 
+.result-box { animation: slideUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
 .res-title { font-size: 2.8rem !important; margin: 0 !important; color: #fff !important; }
+
 .res-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 2.5rem 0; }
 .badge { background: rgba(255, 255, 255, 0.03); border: 1px solid var(--glass-border); padding: 1.5rem; border-radius: 20px; text-align: center; }
 .badge label { display: block; font-size: 0.8rem; color: var(--tech-muted); text-transform: uppercase; margin-bottom: 0.5rem; letter-spacing: 1px; }
@@ -137,19 +155,39 @@ body {
 .treatment-area h4 { font-size: 1.4rem; color: var(--tech-highlight) !important; margin: 0 0 1.5rem; }
 .treatment-area p { margin: 0; font-size: 1.1rem; line-height: 1.8; }
 
+/* --- AI Chat --- */
+.chat-messages { height: 350px; overflow-y: auto; padding-right: 1rem; margin-bottom: 2rem; }
+.msg { margin-bottom: 1.5rem; padding: 1.2rem; border-radius: 20px; max-width: 85%; }
+.msg-ai { background: rgba(37, 99, 235, 0.1); border-top-right-radius: 2px; }
+.msg-user { background: rgba(255, 255, 255, 0.05); margin-right: auto; text-align: left; border-top-left-radius: 2px; }
+.chat-input-area { display: flex; gap: 1rem; }
+.chat-input-area input { flex: 1; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--glass-border); border-radius: 12px; padding: 1rem; color: #fff; outline: none; }
+.btn-chat-send { background: var(--tech-accent); border: none; color: #fff; padding: 0 1.5rem; border-radius: 12px; font-weight: 700; cursor: pointer; }
+
+/* --- Stats --- */
 .stats-row { display: flex; gap: 1.5rem; }
 .stat-item { flex: 1; background: rgba(0, 0, 0, 0.2); padding: 1.5rem; border-radius: 16px; border: 1px solid var(--glass-border); }
 .stat-label { font-size: 0.75rem; color: var(--tech-muted); }
 .stat-val { font-size: 2rem; font-weight: 900; color: var(--tech-highlight); }
 
+/* --- Animations --- */
+.reveal { opacity: 0; transform: translateY(30px); animation: revealOne 0.8s forwards; }
+@keyframes revealOne { to { opacity: 1; transform: translateY(0); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+/* --- Spinner --- */
 .spinner-container { text-align: center; padding: 4rem 0; }
 .liquid-spinner {
     width: 80px; height: 80px; margin: 0 auto 2rem; border: 4px solid rgba(255, 255, 255, 0.05);
     border-top-color: var(--tech-highlight); border-radius: 50%; animation: spin 0.8s cubic-bezier(0.5, 0.1, 0.4, 0.9) infinite;
 }
-@keyframes spin { to { transform: rotate(360deg); } }
 
+/* --- Footer --- */
 .app-footer { text-align: center; padding: 4rem 0; color: var(--tech-muted); font-size: 0.9rem; }
+
+/* --- RTL Fix --- */
+.rtl .msg-user { margin-left: auto; margin-right: 0; text-align: right; }
 """
 
 JS_CONTENT = """
@@ -261,7 +299,7 @@ async function handleAnalysis() {
 
 function showError(msg) { UI.analysisContent.innerHTML = `<div class="error-panel">🚨 <strong>خطأ في النظام:</strong> ${msg}</div>`; }
 function showQualityWarning(warnings) {
-    UI.analysisContent.innerHTML = `<div class="warning-panel"><h3>⚠️ جودة الصورة غير كافية</h3><ul>${warnings.map(w => `<li>${w}</li>`).join('')}</ul><p>يرجى محاكاة إضاءة أفضل.</p></div>`;
+    UI.analysisContent.innerHTML = `<div class="warning-panel"><h3>⚠️ جودة الصورة غير كافية</h3><ul>${warnings.map(w => `<li>${w}</li>`).join('')}</ul><p>يرجى محاكاة إضاءة أفضل أو تقريب الكاميرا.</p></div>`;
 }
 
 function renderAnalysis(data) {
@@ -302,14 +340,15 @@ async function loadAnalytics() {
 }
 """
 
-HTML_CONTENT = """<!DOCTYPE html>
+HTML_CONTENT = f"""<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AgriGuard AI — المؤسسة العالمية لصحة النباتات</title>
-    <!-- CSS is loaded natively -->
-    <link rel="stylesheet" href="/static/style.css">
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap">
+    <style>{CSS_CONTENT}</style>
 </head>
 <body class="rtl">
     <canvas id="particles-canvas"></canvas>
@@ -352,6 +391,7 @@ HTML_CONTENT = """<!DOCTYPE html>
                     <div class="action-bar" style="margin-top: 2rem;">
                         <button id="analyze-btn" class="btn btn-primary" onclick="handleAnalysis()" data-i18n="btn_analyze">
                             <span>بدء التحليل الذكي</span>
+                            <div class="btn-glow"></div>
                         </button>
                     </div>
                 </section>
@@ -391,8 +431,7 @@ HTML_CONTENT = """<!DOCTYPE html>
             <p>© 2026 AgriGuard AI — القمة العالمية في التكنولوجيا الزراعية الذكية</p>
         </footer>
     </div>
-    <!-- JS is loaded natively -->
-    <script src="/static/app.js"></script>
+    <script>{JS_CONTENT}</script>
 </body>
 </html>
 """
@@ -679,18 +718,6 @@ history_manager = HistoryManager()
 def index():
     return HTML_CONTENT
 
-@app.route('/static/style.css')
-def serve_css():
-    response = make_response(CSS_CONTENT)
-    response.headers['Content-Type'] = 'text/css'
-    return response
-
-@app.route('/static/app.js')
-def serve_js():
-    response = make_response(JS_CONTENT)
-    response.headers['Content-Type'] = 'application/javascript'
-    return response
-
 # --- 10. API Endpoints ---
 @app.route('/api/status', methods=['GET'])
 def get_status():
@@ -741,4 +768,3 @@ if __name__ == '__main__':
     # Force single threaded to avoid Watchdog/Waitress overhead while testing standalone scripts
     # Turn off debug mode to avoid werkzeug reloader crashing.
     app.run(host='0.0.0.0', port=5000, debug=False, threaded=True)
-
